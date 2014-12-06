@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'File Times Display' target in the 'File Times Display' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+#endif
