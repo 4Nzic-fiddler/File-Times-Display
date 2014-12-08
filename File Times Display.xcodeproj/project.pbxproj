@@ -13,6 +13,7 @@
 		B27951B51A33887000AA8297 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B27951B31A33887000AA8297 /* Credits.rtf */; };
 		B27951B81A33887000AA8297 /* ftimeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B27951B71A33887000AA8297 /* ftimeAppDelegate.m */; };
 		B27951BB1A33887000AA8297 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27951B91A33887000AA8297 /* MainMenu.xib */; };
+		B27951C31A33B5ED00AA8297 /* FileAttributesTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = B27951C21A33B5ED00AA8297 /* FileAttributesTracker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		B27951B61A33887000AA8297 /* ftimeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ftimeAppDelegate.h; sourceTree = "<group>"; };
 		B27951B71A33887000AA8297 /* ftimeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ftimeAppDelegate.m; sourceTree = "<group>"; };
 		B27951BA1A33887000AA8297 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		B27951C11A33B5ED00AA8297 /* FileAttributesTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileAttributesTracker.h; sourceTree = "<group>"; };
+		B27951C21A33B5ED00AA8297 /* FileAttributesTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileAttributesTracker.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,8 @@
 				B27951AC1A33887000AA8297 /* File Times Display-Info.plist */,
 				B27951AD1A33887000AA8297 /* InfoPlist.strings */,
 				B27951B01A33887000AA8297 /* main.m */,
+				B27951C11A33B5ED00AA8297 /* FileAttributesTracker.h */,
+				B27951C21A33B5ED00AA8297 /* FileAttributesTracker.m */,
 				B27951B21A33887000AA8297 /* File Times Display-Prefix.pch */,
 				B27951B31A33887000AA8297 /* Credits.rtf */,
 			);
@@ -169,6 +174,7 @@
 			files = (
 				B27951B11A33887000AA8297 /* main.m in Sources */,
 				B27951B81A33887000AA8297 /* ftimeAppDelegate.m in Sources */,
+				B27951C31A33B5ED00AA8297 /* FileAttributesTracker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

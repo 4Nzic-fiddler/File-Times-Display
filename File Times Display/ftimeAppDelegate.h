@@ -7,9 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "FileAttributesTracker.h"
 
 @interface ftimeAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property FileAttributesTracker *tracker;
+@property (weak) NSTimer *repeatingTimer;
+- (NSDictionary *)userInfo;
+
+- (IBAction)OpenFileChooser:(id)sender;
+- (IBAction)startRepeatingTimer:sender;
+- (void)updateUserInterface;
+
 
 @end
