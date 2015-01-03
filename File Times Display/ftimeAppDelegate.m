@@ -21,18 +21,24 @@
 	//[self startRepeatingTimer:updateUserInterface];
 }
 
-- (void)updateUserInterface {
-	// Instantiate a NSDateFormatter
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	
-	// Set the dateFormatter format
-	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-	
-	// Get the date time in NSString
-	NSString *modDateInString = [dateFormatter stringFromDate:[self.tracker current_file_mod_date]];
-	
-	
+- (void)controlTextDidChange:(NSNotification *)notification {
+    NSTextField *textField = [notification object];
+	[textField setBackgroundColor:[NSColor yellowColor]];
+    NSLog(@"controlTextDidChange: stringValue == %@", [textField stringValue]);
 }
+
+//- (void)updateUserInterface {
+//	// Instantiate a NSDateFormatter
+//	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//	
+//	// Set the dateFormatter format
+//	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//	
+//	// Get the date time in NSString
+//	NSString *modDateInString = [dateFormatter stringFromDate:[self.tracker current_file_mod_date]];
+//	
+//	
+//}
 
 
 // on press of the file chooser button, show file select dialog

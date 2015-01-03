@@ -14,11 +14,12 @@
 @property (assign) IBOutlet NSWindow *window;
 @property FileAttributesTracker *tracker;
 @property (weak) NSTimer *repeatingTimer;
-- (NSDictionary *)userInfo;
+@property NSDictionary *userInfo;
 
 - (IBAction)OpenFileChooser:(id)sender;
 - (IBAction)startRepeatingTimer:sender;
-- (void)updateUserInterface;
+- (void)controlTextDidChange:(NSNotification *)notification;
+//- (void)updateUserInterface;
 
 
 @end
