@@ -28,57 +28,73 @@
 	// Get last access date
 	struct timespec accessTime = stat1.st_atimespec;
     NSDate *accessDate = [NSDate dateWithTimeIntervalSince1970:accessTime.tv_sec];
-	[self setCurrent_file_access_date:accessDate];
+	if ([self dateHasChanged:accessDate FromDate:self.current_file_access_date]) {
+		[self setCurrent_file_access_date:accessDate];
+	}
 	
 	// Get the last used (double-clicked) date
 	NSDate *usedDate = [self getDateFromSpotlightForFile:self.current_file_url WithDateName:@"kMDItemLastUsedDate"];
-	[self setCurrent_file_last_used_date:usedDate];
+	if ([self dateHasChanged:usedDate FromDate:self.current_file_last_used_date]) {
+		[self setCurrent_file_last_used_date:usedDate];
+	}
 	
-	// Get the attribute change time
+	// Get the ctime (attribute change time)
 	struct timespec changeTime = stat1.st_ctimespec;
 	NSDate *changeDate = [NSDate dateWithTimeIntervalSince1970:changeTime.tv_sec];
-	[self setCurrent_file_attribute_date:changeDate];
+	if ([self dateHasChanged:changeDate FromDate:self.current_file_ctime_date]) {
+		[self setCurrent_file_ctime_date:changeDate];
+	}
 	
 	// Get the attribute date from spotlight
 	NSDate *attributeDate = [self getDateFromSpotlightForFile:self.current_file_url WithDateName:@"kMDItemAttributeChangeDate"];
-	[self setCurrent_file_attribute_date:attributeDate];
+	if ([self dateHasChanged:attributeDate FromDate:self.current_file_attribute_date]) {
+		[self setCurrent_file_attribute_date:attributeDate];
+	}
 	
 	// Get the added (to folder) date
-	NSDate *addedDate = [self dateAdded:self.current_file_url];
-	[self setCurrent_file_added_date:addedDate];
+	NSDate *addedDate = [self getDateFromSpotlightForFile:self.current_file_url WithDateName:@"kMDItemDateAdded"];
+	if ([self dateHasChanged:addedDate FromDate:self.current_file_added_date]) {
+		[self setCurrent_file_added_date:addedDate];
+	}
 	
 	// Get other file attributes into attrs
 	NSDictionary *attrs = [NSFileManager.defaultManager attributesOfItemAtPath: self.current_file_path error: NULL];
 	
 	// Get File Creation Date
 	NSDate *birth_date = [attrs objectForKey:NSFileCreationDate];
-	[self setCurrent_file_birth_date:birth_date];
+	if ([self dateHasChanged:birth_date FromDate:self.current_file_birth_date]) {
+		[self setCurrent_file_birth_date:birth_date];
+	}
 	
 	// Get Content creation date (not necessarily the same as file creation date)
 	NSDate *content_date = [self getDateFromSpotlightForFile:self.current_file_url WithDateName:@"kMDItemContentCreationDate"];
-	[self setCurrent_file_content_creation_date:content_date];
+	if ([self dateHasChanged:content_date FromDate:self.current_file_content_creation_date]) {
+		[self setCurrent_file_content_creation_date:content_date];
+	}
 	
 	//Get Modification Date
 	NSDate *mod_date = [attrs objectForKey:NSFileModificationDate];
-	[self setCurrent_file_mod_date:mod_date];
+	if ([self dateHasChanged:mod_date FromDate:self.current_file_mod_date]) {
+		[self setCurrent_file_mod_date:mod_date];
+	}
 	
 	// Get owner name
 	NSString *owner = [attrs objectForKey:NSFileOwnerAccountName];
-	[self setCurrent_file_owner_name:owner];
+	if ([owner compare:self.current_file_owner_name ] != NSOrderedSame) [self setCurrent_file_owner_name:owner];
 	
 	// Get OwnerID
 	NSString *owner_id = [attrs objectForKey:NSFileOwnerAccountID];
-	[self setCurrent_file_owner_id:owner_id];
+	if (owner_id != self.current_file_owner_id) [self setCurrent_file_owner_id:owner_id];
 	// Format owner name as id:name
 	//NSString *id_owner = [owner_id stringByAppendingFormat:@":%@", owner];
 	//[self setCurrent_file_owner_name:id_owner];
 	
 	// Get Group name and ID
 	NSString *group_name = [attrs objectForKey:NSFileGroupOwnerAccountName];
-	[self setCurrent_file_group_name:group_name];
+	if ([group_name compare:self.current_file_group_name]!= NSOrderedSame) [self setCurrent_file_group_name:group_name];
 	
 	NSString *group_id = [attrs objectForKey:NSFileGroupOwnerAccountID];
-	[self setCurrent_file_group_id:group_id];
+	if (group_id != self.current_file_group_id) [self setCurrent_file_group_id:group_id];
 	
 	// Format group name as id:name
 	//NSString *id_group_name = [group_id stringByAppendingFormat:@":%@", group_name];
@@ -172,8 +188,12 @@
 		CFFileSecurityCopyAccessControlList(cfFileSecRef, &aclValue);
 		
 		aclText = acl_to_text(aclValue, NULL);
-		NSString *aclString = [[NSString alloc]initWithUTF8String:aclText];
-		[self setCurrent_file_acl_text:aclString];
+		if (aclText) {
+			NSString *aclString = [[NSString alloc]initWithUTF8String:aclText];
+			[self setCurrent_file_acl_text:aclString];
+		} else {
+			[self setCurrent_file_acl_text:@"(no Access Control List set)"];
+		}
 		
 	} ;
 }
@@ -211,57 +231,27 @@
     inspectedRef = MDItemCreateWithURL(kCFAllocatorDefault, (__bridge CFURLRef)url);
     if (inspectedRef){
         CFTypeRef cfRslt = MDItemCopyAttribute(inspectedRef, (__bridge CFStringRef)attribute_name);
-        if (cfRslt) {
+        if (cfRslt && cfRslt != NULL) {
             rslt = (__bridge NSDate *)cfRslt;
-        }
+        } else {
+			if (cfRslt==NULL) NSLog(@"NULL avoided");
+		}
     }
+	if (rslt == nil) {
+		//NSLog(@"getDateFromSpotlightForFile will return nil");
+	}
     return rslt;
 
 }
 
-- (NSDate *)dateAdded:(NSURL *)url
+- (BOOL)dateHasChanged:(NSDate *)newDate FromDate:(NSDate *)oldDate
 {
-    NSDate *rslt = nil;
-    MDItemRef inspectedRef = nil;
-	
-    inspectedRef = MDItemCreateWithURL(kCFAllocatorDefault, (__bridge CFURLRef)url);
-    if (inspectedRef){
-        CFTypeRef cfRslt = MDItemCopyAttribute(inspectedRef, (CFStringRef)@"kMDItemDateAdded");
-        if (cfRslt) {
-            rslt = (__bridge NSDate *)cfRslt;
-        }
-    }
-    return rslt;
-}
-
-- (NSDate *)dateLastUsed:(NSURL *)url
-{
-    NSDate *rslt = nil;
-    MDItemRef inspectedRef = nil;
-	
-    inspectedRef = MDItemCreateWithURL(kCFAllocatorDefault, (__bridge CFURLRef)url);
-    if (inspectedRef){
-        CFTypeRef cfRslt = MDItemCopyAttribute(inspectedRef, (CFStringRef)@"kMDItemLastUsedDate");
-        if (cfRslt) {
-            rslt = (__bridge NSDate *)cfRslt;
-        }
-    }
-    return rslt;
-}
-
-- (NSDate *)dateContentCreated:(NSURL *)url
-{
-    NSDate *rslt = nil;
-    MDItemRef inspectedRef = nil;
-	
-    inspectedRef = MDItemCreateWithURL(kCFAllocatorDefault, (__bridge CFURLRef)url);
-    if (inspectedRef){
-        CFTypeRef cfRslt = MDItemCopyAttribute(inspectedRef, (CFStringRef)@"kMDItemContentCreationDate");
-        if (cfRslt) {
-            rslt = (__bridge NSDate *)cfRslt;
-        }
-    }
-    return rslt;
+	if (!newDate && oldDate) return TRUE;
+	if (newDate && !oldDate) return TRUE;
+	if (!newDate && !oldDate) return FALSE;
+	NSComparisonResult comareResult = [newDate compare:oldDate];
+	if (comareResult == NSOrderedSame) return FALSE;
+	return TRUE;
 }
 
 

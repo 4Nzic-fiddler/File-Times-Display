@@ -14,6 +14,8 @@
 		B27951B81A33887000AA8297 /* ftimeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B27951B71A33887000AA8297 /* ftimeAppDelegate.m */; };
 		B27951BB1A33887000AA8297 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27951B91A33887000AA8297 /* MainMenu.xib */; };
 		B27951C31A33B5ED00AA8297 /* FileAttributesTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = B27951C21A33B5ED00AA8297 /* FileAttributesTracker.m */; };
+		B292BBFB1A5846CC00F74967 /* ColorChangingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B292BBFA1A5846CC00F74967 /* ColorChangingTextField.m */; };
+		B292BBFE1A5BB68A00F74967 /* NilDateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B292BBFD1A5BB68A00F74967 /* NilDateTransformer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,10 @@
 		B27951BA1A33887000AA8297 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		B27951C11A33B5ED00AA8297 /* FileAttributesTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileAttributesTracker.h; sourceTree = "<group>"; };
 		B27951C21A33B5ED00AA8297 /* FileAttributesTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileAttributesTracker.m; sourceTree = "<group>"; };
+		B292BBF91A5846CC00F74967 /* ColorChangingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorChangingTextField.h; sourceTree = "<group>"; };
+		B292BBFA1A5846CC00F74967 /* ColorChangingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorChangingTextField.m; sourceTree = "<group>"; };
+		B292BBFC1A5BB68A00F74967 /* NilDateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NilDateTransformer.h; sourceTree = "<group>"; };
+		B292BBFD1A5BB68A00F74967 /* NilDateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NilDateTransformer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +94,10 @@
 				B27951B61A33887000AA8297 /* ftimeAppDelegate.h */,
 				B27951B71A33887000AA8297 /* ftimeAppDelegate.m */,
 				B27951B91A33887000AA8297 /* MainMenu.xib */,
+				B292BBF91A5846CC00F74967 /* ColorChangingTextField.h */,
+				B292BBFC1A5BB68A00F74967 /* NilDateTransformer.h */,
+				B292BBFD1A5BB68A00F74967 /* NilDateTransformer.m */,
+				B292BBFA1A5846CC00F74967 /* ColorChangingTextField.m */,
 				B27951AB1A33887000AA8297 /* Supporting Files */,
 			);
 			path = "File Times Display";
@@ -175,6 +185,8 @@
 				B27951B11A33887000AA8297 /* main.m in Sources */,
 				B27951B81A33887000AA8297 /* ftimeAppDelegate.m in Sources */,
 				B27951C31A33B5ED00AA8297 /* FileAttributesTracker.m in Sources */,
+				B292BBFB1A5846CC00F74967 /* ColorChangingTextField.m in Sources */,
+				B292BBFE1A5BB68A00F74967 /* NilDateTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +322,7 @@
 				B27951C01A33887000AA8297 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

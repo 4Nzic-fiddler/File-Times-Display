@@ -13,9 +13,10 @@
 @property NSDate *current_file_birth_date;
 @property NSDate *current_file_content_creation_date;
 @property NSDate *current_file_mod_date;
-@property NSDate *current_file_access_date;
+@property IBOutlet NSDate *current_file_access_date;
 @property NSDate *current_file_last_used_date;
 @property NSDate *current_file_attribute_date;
+@property NSDate *current_file_ctime_date;
 @property NSDate *current_file_added_date;
 @property NSDate *current_file_backup_date;
 @property NSString *current_file_owner_name;
@@ -51,7 +52,6 @@
 - (void)displayFileAttributes;
 
 - (NSDate *)getDateFromSpotlightForFile:(NSURL *)url WithDateName:(NSString *)attribute_name;
-- (NSDate *)dateAdded:(NSURL *)url;
-- (NSDate *)dateLastUsed:(NSURL *)url;
-- (NSDate *)dateContentCreated:(NSURL *)url;
+
+- (BOOL)dateHasChanged:(NSDate *)newDate FromDate:(NSDate *)oldDate;
 @end
